@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#DCFFC9',
     },
     taskContainer : {
-        width: '95%',
+        width: 400,
         height: 60, 
         backgroundColor : 'white',
         justifyContent: 'center',

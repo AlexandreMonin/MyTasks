@@ -14,6 +14,12 @@ export default function App() {
     setTask(null);
   }
 
+  const deleteTask = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy);
+  }
+
   return (
     <View style={styles.container}>
 
@@ -28,7 +34,9 @@ export default function App() {
         {
           taskItems.map((item, index) => {
             return (
-              <Task key={index} text={item}></Task>
+              <TouchableOpacity key={index} onPress={() => deleteTask(index)}>
+                <Task text={item}></Task>
+              </TouchableOpacity>
             )
           })
         }
