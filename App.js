@@ -1,9 +1,19 @@
-import { Text, ScrollView, View } from 'react-native';
+import { Text, ScrollView, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import styles from './assets/styles/Styles';
-import AddFields from './components/AddFields';
 import Task from './components/Task';
+import { useState } from 'react';
 
 export default function App() {
+
+  const [task, setTask] = useState();
+  const [taskItems, setTaskItems] = useState([]);
+
+  const addTask = () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task]);
+    setTask(null);
+  }
+
   return (
     <View style={styles.container}>
 
@@ -12,17 +22,28 @@ export default function App() {
         <Text style={styles.title}>Mes Tâches</Text>
 
       </View>
-      
+
       <ScrollView contentContainerStyle={styles.taskView}>
 
-        <Task text="Tâche 1"></Task>
-        <Task text="Tâche 2"></Task>
-        <Task text="Tâche 3"></Task>
-        <Task text="Tâche 4"></Task>
-            
+        {
+          taskItems.map((item, index) => {
+            return (
+              <Task key={index} text={item}></Task>
+            )
+          })
+        }
+
       </ScrollView>
 
-      <AddFields></AddFields>
+      <KeyboardAvoidingView style={styles.addFields}>
+
+        <TextInput style={styles.addInput} placeholder='Ajouter une tâche...' value={task} onChangeText={text => setTask(text)}></TextInput>
+
+        <TouchableOpacity style={styles.addButton} onPress={() => addTask()}>
+          <Text style={styles.btnText}>+</Text>
+        </TouchableOpacity>
+
+      </KeyboardAvoidingView>
 
     </View>
   );
